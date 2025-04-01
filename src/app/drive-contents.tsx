@@ -1,11 +1,17 @@
 "use client"
 
-import { useMemo, useState } from "react"
 import { Folder, FileIcon, Upload, ChevronRight } from "lucide-react"
 import Link from "next/link"
-import { Button } from "~/components/ui/button"
 import { FileRow, FolderRow } from "./file-row"
 import type { files_table, folders_table } from '~/server/db/schema'
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+
 
 export default function GoogleDriveClone(
   props: {
@@ -41,10 +47,14 @@ export default function GoogleDriveClone(
               </div>
             ))}
           </div>
-          <Button onClick={handleUpload} className="bg-blue-600 text-white hover:bg-blue-700">
-            <Upload className="mr-2" size={20} />
-            Upload
-          </Button>
+          <div>
+            <SignedOut>
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </div>
         <div className="bg-gray-800 rounded-lg shadow-xl">
           <div className="px-6 py-4 border-b border-gray-700">
