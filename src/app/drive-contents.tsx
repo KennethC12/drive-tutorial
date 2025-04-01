@@ -4,6 +4,7 @@ import { Folder, FileIcon, Upload, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { FileRow, FolderRow } from "./file-row"
 import type { files_table, folders_table } from '~/server/db/schema'
+import { UploadButton } from "../components/uploadthing";
 import {
   SignInButton,
   SignUpButton,
@@ -11,7 +12,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
-
+import { useRouter } from "next/navigation";
 
 export default function GoogleDriveClone(
   props: {
@@ -19,10 +20,9 @@ export default function GoogleDriveClone(
     folders: (typeof folders_table.$inferSelect)[];
     parents: (typeof folders_table.$inferSelect)[];
   }) {
+  
+  const naviage = useRouter();
 
-  const handleUpload = () => {
-    alert("Upload functionality would be implemented here")
-  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8">
@@ -73,6 +73,7 @@ export default function GoogleDriveClone(
             ))}
           </ul>
         </div>
+        <UploadButton endpoint="imageUploader" onClientUploadComplete={() => naviage.refresh()}/>
       </div>
     </div>
   )

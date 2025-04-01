@@ -1,8 +1,10 @@
 import "~/styles/globals.css";
+import "@uploadthing/react/styles.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -21,7 +23,24 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${geist.variable}`}>
-        <body>{children}</body>
+        <body>
+          <NextSSRPlugin
+            routerConfig={[
+              {
+                slug: "imageUploader",
+                config: {
+                  image: {
+                    maxFileSize: "4MB",
+                    maxFileCount: 1,
+                    minFileCount: 1,
+                    contentDisposition: "attachment",
+                  },
+                },
+              },
+            ]}
+          />
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
