@@ -48,6 +48,6 @@ export const MUTATIONS = {
         };
         userId: string
     }) {
-        return await db.insert(filesSchema).values({...input.file, parent: input.file.parent})
+        return await db.insert(filesSchema).values({...input.file, parent: input.file.parent, owenerId: input.userId})
     }
 }
