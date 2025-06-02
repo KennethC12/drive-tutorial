@@ -19,6 +19,8 @@ export default function GoogleDriveClone(
     files: (typeof files_table.$inferSelect)[];
     folders: (typeof folders_table.$inferSelect)[];
     parents: (typeof folders_table.$inferSelect)[];
+
+    currentFolderId: number;
   }) {
   
   const naviage = useRouter();
@@ -73,7 +75,7 @@ export default function GoogleDriveClone(
             ))}
           </ul>
         </div>
-        <UploadButton endpoint="imageUploader" onClientUploadComplete={() => naviage.refresh()}/>
+        <UploadButton endpoint="imageUploader" onClientUploadComplete={() => naviage.refresh()} input={{folderId: props.currentFolderId}}/>
       </div>
     </div>
   )
